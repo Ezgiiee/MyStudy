@@ -1,12 +1,5 @@
 package classicalcryptography;
-
-// 180315024
-
 import java.util.Scanner;
-
-
-// EZGİ EYİCE
-// 1st Education
 
 public class ClassicalCryptography {
 
