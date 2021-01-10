@@ -1,8 +1,7 @@
 package game;
 
-// 180315024
-// EZGİ EYİCE
-// 1st Education
+// Zar atma oyunu
+// iki oyuncu sırayla zar atıyorlar belli kurallar çerçevesinde 100 adımlık oyunda ilerliyorlar ve ilk 100'e ulaşan kazanıyor.
 
 public class Game {
 
