@@ -1,6 +1,21 @@
 package classicalcryptography;
 import java.util.Scanner;
 
+/*
+For example:
+The message is “MEET YOU IN THE PARK” 
+First replace the letters in the message with numbers. This produces
+
+MEET YOU IN THE PARK
+12 4 4 19   24 14 20   8 13   19 7 4   15 0 17 10
+
+15 7 7 22   1 17 23   11 16   22 10 7   18 3 20 13
+Translating this back to letters produces the encrypted message is “PHHW BRX LQ WKH SDUN”
+                                          the decrypted message is “MEET YOU IN THE PARK”
+
+*/
+
+
 public class ClassicalCryptography {
 
     public static void main(String[] args) {
@@ -29,7 +44,7 @@ public class ClassicalCryptography {
         System.out.print("The encrypted message ==> ");
         for(int i= 0; i<num.length; i++){
             
-            if("".equals(num[i])){ // eğer şifrede boşluk varsa 
+            if("".equals(num[i])){ // if password has empty
                 
                 encrypted[i] = ' ';
                 i++;
@@ -37,7 +52,7 @@ public class ClassicalCryptography {
             }
                 
             
-            encrypted[i] = charcacters[Integer.valueOf(num[i])]; //girilen sayının rakam değerini alıyoruz
+            encrypted[i] = charcacters[Integer.valueOf(num[i])]; 
             System.out.print(encrypted[i]+" ");
         }
         System.out.println("");
@@ -47,7 +62,7 @@ public class ClassicalCryptography {
         System.out.print("The decrypted message ==> ");
         for(int i = 0; i<num.length; i++){
             
-            if("".equals(num[i])){ // eğer şifrede boşluk varsa 
+            if("".equals(num[i])){ // if password has empty
                 
                 decrypted[i] = ' ';
                 i++;
