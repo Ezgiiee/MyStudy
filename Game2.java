@@ -95,7 +95,7 @@ public class Game2 {
                     currentLetter = (char) Character.toLowerCase( (int) currentLetter );
                     
                 }
-                while( !yeniHarf( currentLetter, usedLetters ) || (int) currentLetter < 97 || (int) currentLetter > 122 || (int) currentLetter == 0 ); // 97: A and 122: Z in ASCII table
+                while( !newLetter( currentLetter, usedLetters ) || (int) currentLetter < 97 || (int) currentLetter > 122 || (int) currentLetter == 0 ); // 97: A and 122: Z in ASCII table
                 
                 matchingLetter = false;
                 
@@ -194,11 +194,11 @@ public class Game2 {
     }
     
     
-    public static boolean yeniHarf( char harf, String usedLetters )
-    {
+    public static boolean newLetter( char letter, String usedLetters ){
+    
         for( int i = 0; i < usedLetters.length(); i++ )
         {
-            if( usedLetters.charAt( i ) == harf )
+            if( usedLetters.charAt( i ) == letter )
             {
                 return false;
             }
@@ -207,12 +207,12 @@ public class Game2 {
     }
     
     
-    public static String kelimeYazma( String kelime )
-    {
+    public static String kelimeYazma( String kelime ){
+    
         String result = "";
          
-        for( int i = 0; i < kelime.length(); i++ )
-        {
+        for( int i = 0; i < kelime.length(); i++ ){
+        
             if( kelime.charAt( i ) == ' ' )
             {
                 result = result + " ";
