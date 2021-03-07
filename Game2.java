@@ -1,97 +1,83 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ıtpproject2;
-
+package game2;
 import java.util.Scanner;
 
-/**
- *
- * @author Ezgi
- */
-public class ItpProject2 {
+//Classic a hangman game
+public class Game2 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        
-        // EZGİ EYİCE 180315024
         
         Scanner input = new Scanner(System.in);
         
-        // Oyunun kelimeleri
-        String kelimeler[]={"istanbul","ankara","izmir","bursa","kocaeli",
+        //the words of game
+        String words[]={"istanbul","ankara","izmir","bursa","kocaeli",
                             "manisa",  "balikesir","tekirdag","edirne","sakarya",
                             "sinop","ordu","samsun","zonguldak","sivas",
                             "ardahan","kars","sanliurfa","rize","antalya",
                             "adana","hatay","gaziantep","mugla","aydin"  };
-        //Değişkenler
+        //variables
         
-        String kullanılanHarfler ,  wordToShow;
-        String uzunTahmin = "";
+        String usedLetters ,  wordToShow;
+        String wordPrediction = "";
         
-        int kalanHak ;
-        int tahminHakkı = 2;
+        int remaining ;  //the remaining right to guess
+        int totalRight = 2;  // total right to guess kullanılmamaış
         
-        char mevcutHarf,playAgain ;
+        char currentLetter,playAgain ;
         
-        boolean tamamlanan , harfEslesti;
+        boolean completed , matchingLetter;
         
-        // Oyunun kodları
         
+        // do-while loops (for game)
         
         do{
             
-            int randomKelime =(int)( Math.random()*(kelimeler.length));
-            String secilenKelime = kelimeler[randomKelime];
+            int randomWord =(int)( Math.random()*(words.length));
+            String selectedWord = words[randomWord];
             
             System.out.println("------WELCOME TO HANGAMAN GAME------\n");
             System.out.println("What is your name and surname ? ");
             String isim = input.nextLine();
-            System.out.println("Secret Word ==> "+secilenKelime);
-            wordToShow = kelimeYazma(secilenKelime);
+            System.out.println("Secret Word ==> "+selectedWord);
+            wordToShow = kelimeYazma(selectedWord);
             
-            kalanHak = secilenKelime.length()*2;
-            tamamlanan = false;
-            kullanılanHarfler = "";
+            remaining = selectedWord.length()*2;
+            completed = false;
+            usedLetters = "";
             
             
             
-            while( kalanHak>0 && !tamamlanan){
+            while(remaining>0 && !completed){
                
-                System.out.println("WORD "+wordToShow);
+                System.out.println("WORD = "+wordToShow);
                 System.out.print("Used Letters : ");
                 
-                if(kullanılanHarfler.length() == 0){
+                if(usedLetters.length() == 0){
                     System.out.println(" none ");
                 }
                 else{
                     
-                    for( int i = 0; i < kullanılanHarfler.length(); i++ )
+                    for( int i = 0; i < usedLetters.length(); i++ )
                     {
-                        System.out.print( kullanılanHarfler.charAt( i ) + " " );
+                        System.out.print( usedLetters.charAt( i ) + " " );
                     }
- 
+                    
                     System.out.println( "\n" );
                     
                 }
-                System.out.println("Enter a letter. You have "+(kalanHak)+" left. Please enter 0 for guessing all word. ");
+                System.out.println("Enter a letter. You have "+(remaining)+" left. Please enter 0 for guessing all word. ");
                 
                 do{
                     
-                    mevcutHarf = input.next().charAt(0);
+                    currentLetter = input.next().charAt(0);
                     
-                    if(mevcutHarf == '0'){
+                    if(currentLetter == '0'){
                             System.out.println("You can enter your guess. ");
-                            uzunTahmin = input.nextLine();
+                            wordPrediction = input.nextLine();
                             
-                        
-                            if(uzunTahmin.equals(kelimeler[randomKelime])){
+                            
+                            if(wordPrediction.equals(words[randomWord])){
                                 
-                                System.out.println("Correct! Please enter 0 for replay or enter 1 for exit. " );
+                                System.out.println("Correct! Please enter 0 for replay or enter 1 for exit. ");
                                 
                                 playAgain = input.next().charAt( 0 );
                                 
@@ -106,46 +92,46 @@ public class ItpProject2 {
                             }
                            
                     }        
-                    mevcutHarf = (char) Character.toLowerCase( (int) mevcutHarf );
+                    currentLetter = (char) Character.toLowerCase( (int) currentLetter );
                     
                 }
-                while( !yeniHarf( mevcutHarf, kullanılanHarfler ) || (int) mevcutHarf < 97 || (int) mevcutHarf > 122 || (int)mevcutHarf == 0  ); // 97: A and 122: Z in ASCII table
+                while( !yeniHarf( currentLetter, usedLetters ) || (int) currentLetter < 97 || (int) currentLetter > 122 || (int) currentLetter == 0 ); // 97: A and 122: Z in ASCII table
                 
-                harfEslesti = false;
+                matchingLetter = false;
                 
-                for(int i = 0; i<secilenKelime.length();i++){
+                for(int i = 0; i<selectedWord.length(); i++){
                     
-                    if(Character.toLowerCase(secilenKelime.charAt(i)) == mevcutHarf){
+                    if(Character.toLowerCase(selectedWord.charAt(i)) == currentLetter){
                         
                         if( i == 0 )
                         {
-                            wordToShow = mevcutHarf + wordToShow.substring( 1 );
+                            wordToShow = currentLetter + wordToShow.substring( 1 );
                         }
-                        else if( i == secilenKelime.length() - 1 )
+                        else if( i == selectedWord.length() - 1 )
                         {
-                            wordToShow = wordToShow.substring( 0, wordToShow.length() - 1 ) + mevcutHarf;
+                            wordToShow = wordToShow.substring( 0, wordToShow.length() - 1 ) + currentLetter;
                         }
                         else
                         {
-                            wordToShow = wordToShow.substring( 0, i ) + mevcutHarf + wordToShow.substring( i + 1 );
+                            wordToShow = wordToShow.substring( 0, i ) + currentLetter + wordToShow.substring( i + 1 );
                         }
  
-                        harfEslesti = true;
+                        matchingLetter = true;
                         
                     }
                 }
-                if( !harfEslesti){
+                if( !matchingLetter){
                     kalanHak--;
                 }
                 
-                kullanılanHarfler = yeniHarfEkleme(kullanılanHarfler, mevcutHarf );
+                usedLetters = yeniHarfEkleme(usedLetters, currentLetter );
                 
-                tamamlanan = true;
+                completed = true;
                 for( int i = 0; i < wordToShow.length(); i++ )
                 {
                     if( wordToShow.charAt( i ) == '-' )
                     {
-                        tamamlanan = false;
+                        completed = false;
                     }
                 }
                 
@@ -176,43 +162,43 @@ public class ItpProject2 {
         System.out.println();    
         }
     
-    // METOTLAR
+    // USING METHODS 
     
-    public static String yeniHarfEkleme( String kullanılanHarfler, char mevcutHarf ){
+    public static String yeniHarfEkleme( String usedLetters, char currentLetter ){
         
         // GİRİLEN HARFLERİ ALFABETİK SIRAYA KOYMA
         int i;
  
-        if( kullanılanHarfler.length() == 0 )
+        if( usedLetters.length() == 0 )
         {
-            kullanılanHarfler = "" + mevcutHarf;
+            usedLetters = "" + currentLetter;
         }
         else
         {
             i = 0;
-            while( i < kullanılanHarfler.length() && (int) kullanılanHarfler.charAt( i ) < (int) mevcutHarf )
+            while( i < usedLetters.length() && (int) usedLetters.charAt( i ) < (int) currentLetter )
             {
                 i++;
             }
  
-            if( i == kullanılanHarfler.length() )
+            if( i == usedLetters.length() )
             {
-                kullanılanHarfler = kullanılanHarfler + mevcutHarf;
+                usedLetters = usedLetters + currentLetter;
             }
             else
             {
-                kullanılanHarfler = kullanılanHarfler.substring( 0, i ) + mevcutHarf + kullanılanHarfler.substring( i );
+                usedLetters = usedLetters.substring( 0, i ) + currentLetter + usedLetters.substring( i );
             }
         }
-        return kullanılanHarfler;
+        return usedLetters;
     }
     
     
-    public static boolean yeniHarf( char harf, String kullanılanHarfler )
+    public static boolean yeniHarf( char harf, String usedLetters )
     {
-        for( int i = 0; i < kullanılanHarfler.length(); i++ )
+        for( int i = 0; i < usedLetters.length(); i++ )
         {
-            if( kullanılanHarfler.charAt( i ) == harf )
+            if( usedLetters.charAt( i ) == harf )
             {
                 return false;
             }
