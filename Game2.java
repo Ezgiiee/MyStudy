@@ -1,7 +1,16 @@
 package game2;
 import java.util.Scanner;
 
-//Classic a hangman game
+/* 
+
+Classic a hangman game
+User tries to guess letters of this randomly chosen word. User can enter wrong letter two times 
+of the number of word letters. User has two times of number of word letters trials to guess a wrong 
+letter. When the user exceeds the limit for entering the wrong letter, the option to replay must be 
+provided.
+
+*/
+
 public class Game2 {
 
     public static void main(String[] args) {
@@ -36,9 +45,9 @@ public class Game2 {
             
             System.out.println("------WELCOME TO HANGAMAN GAME------\n");
             System.out.println("What is your name and surname ? ");
-            String isim = input.nextLine();
+            String name = input.nextLine();
             System.out.println("Secret Word ==> "+selectedWord);
-            wordToShow = kelimeYazma(selectedWord);
+            wordToShow = showWord(selectedWord);
             
             remaining = selectedWord.length()*2;
             completed = false;
@@ -121,10 +130,10 @@ public class Game2 {
                     }
                 }
                 if( !matchingLetter){
-                    kalanHak--;
+                    remaining--;
                 }
                 
-                usedLetters = yeniHarfEkleme(usedLetters, currentLetter );
+                usedLetters = sortOfLetters(usedLetters, currentLetter );
                 
                 completed = true;
                 for( int i = 0; i < wordToShow.length(); i++ )
@@ -146,7 +155,7 @@ public class Game2 {
  
             if( playAgain == '0' )
             {
-                // yeni oyuna başlayınca bırakılan boşluk
+                // a empty line for new game
                 for( int i = 0; i < 10; i++ )
                 {
                     System.out.println();
@@ -164,9 +173,9 @@ public class Game2 {
     
     // USING METHODS 
     
-    public static String yeniHarfEkleme( String usedLetters, char currentLetter ){
+    public static String sortOfLetters( String usedLetters, char currentLetter ){
         
-        // GİRİLEN HARFLERİ ALFABETİK SIRAYA KOYMA
+        // Sorting of entered letters in order
         int i;
  
         if( usedLetters.length() == 0 )
@@ -207,13 +216,13 @@ public class Game2 {
     }
     
     
-    public static String kelimeYazma( String kelime ){
+    public static String showWord( String word ){
     
         String result = "";
          
-        for( int i = 0; i < kelime.length(); i++ ){
+        for( int i = 0; i < word.length(); i++ ){
         
-            if( kelime.charAt( i ) == ' ' )
+            if( word.charAt( i ) == ' ' )
             {
                 result = result + " ";
             }
@@ -225,6 +234,10 @@ public class Game2 {
  
         return result;
     }
+    
+    
+    
+    
     
         
         
